@@ -1,6 +1,11 @@
 function [ K ] = K_methane( T, P, phi)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+% K_METHANE This function takes as input temperature, pressure, and equivalence ratio
+% phi to compute the value of K for methane. Can derive from droplet mass conservation the 
+% D^2 law: dD^2/dt^2 = -K = -8*rho*D_AB / rho_l * log(1+B_y) = constant
+% For liquid mass conservation: dD^2/dt^2 = -K = -8*k_g / (rho_l*c_pg) * log(1+B_y) = constant
+
+% GRI - Mech 3.0 is a 53 species, 325-reaction natural gas combustion mechanism. More info at 
+% http://www.me.berkeley.edu/gri_mech/
 
 gas = GRI30('Multi');
 fuel = GRI30('Multi');
@@ -53,6 +58,9 @@ kox = thermalConductivity(ox);
 k = 0.4*kf + 0.6*kox; % Emprical relation for thermal conductivity
 cp = cp_mass(fuel);
 
+% Boq is a mass transfer coefficient. There are various derivations for the form of 
+% Boq depending on the assumptions of the problem. Look at written Ae121b notes for 
+% details.
 Boq = (hc/nu * 1000 + cp*(T-tb))/(hfg * 1000);
 K = 8*k/(rho*cp)*log(1+Boq);
 
