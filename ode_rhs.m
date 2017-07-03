@@ -2,12 +2,12 @@ function [ output_args ] = ode_rhs( x, z )
 
 global P0 A mdot_ox mdot_l0 rho_l FO_st hfg ii D0
 
-D = sqrt(z(1))
-Tg = z(2)
-vd = z(3)
-mdot_g = z(4)
-phi_g = z(5)
-x
+D = sqrt(z(1));
+Tg = z(2);
+vd = z(3);
+mdot_g = z(4);
+phi_g = z(5);
+x;
 
     if ii == 1
        D0 = D;
